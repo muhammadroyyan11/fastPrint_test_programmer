@@ -20,19 +20,16 @@ class Dashboard extends CI_Controller
         $username = userdata('username');
         $password = userdata('password');
 
-        // Set up and execute the curl process
         $curl_handle = curl_init();
         curl_setopt($curl_handle, CURLOPT_URL, 'https://recruitment.fastprint.co.id/tes/api_tes_programmer');
         curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl_handle, CURLOPT_POST, 1);
         curl_setopt($curl_handle, CURLOPT_POSTFIELDS, array(
-            'username' => 'tesprogrammer121223C11',
+            'username' => $username,
             'password' => $password
         ));
 
-        // Optional, delete this line if your API is open
-        // curl_setopt($curl_handle, CURLOPT_USERPWD, $username . ':' . $password);
-
+        
         $buffer = curl_exec($curl_handle);
         curl_close($curl_handle);
 

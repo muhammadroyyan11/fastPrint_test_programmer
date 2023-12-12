@@ -5,7 +5,14 @@ class Auth_model extends CI_Model
 {
     public function get_data()
     {
-        $this->db->select('updated_at');
+        $this->db->select('*');
+        $this->db->from('user');
+        return $this->db->get()->row();
+    }
+
+    public function get_username()
+    {
+        $this->db->select('username');
         $this->db->from('user');
         return $this->db->get()->row();
     }

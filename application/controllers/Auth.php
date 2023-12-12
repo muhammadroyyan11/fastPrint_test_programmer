@@ -24,15 +24,25 @@ class Auth extends CI_Controller
         $this->_has_login();
 
         $date_db = $this->auth->get_data();
+        $username_db = $this->auth->get_username();
 
-        if ($date_db != date('Y-m-d')) {
+        $currentHour = date('H');
+
+        $newHour = $currentHour + 1;
+
+        $newHour = ($newHour >= 24) ? 0 : $newHour;
+
+
+        if ($date_db->updated_at < date('Y-m-d H:i:s')) {
             $params = [
+                'username' => 'tesprogrammer' . date('d') . date('m') . date('y') . 'C' . $newHour,
                 'password' => md5('bisacoding-' . date('d') . '-' . date('m') . '-' . date('y') . ''),
-                'updated_at' => date('Y-m-d')
+                'updated_at' => date('Y-m-d H:i:s')
             ];
-
             $this->base->edit('user', $params);
         }
+
+        
 
         $this->form_validation->set_rules('username', 'Username', 'required|trim');
         $this->form_validation->set_rules('password', 'Password', 'required|trim');
